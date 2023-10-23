@@ -2,6 +2,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.1"
+gem "devise"
 
 gem "simple_form"
 
@@ -95,6 +96,7 @@ group :development do
   gem "rufo"
   gem "specs_to_readme"
   gem "web_git"
+  
 end
 
 group :development, :test do
