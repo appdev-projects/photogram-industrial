@@ -1,3 +1,73 @@
 desc "Fill the database tables with some sample data"
-task({ :sample_data => :environment }) do
+task sample_data: :environment do
+  p "Creating sample data"
+
+  if Rails.env.development?
+    FollowRequest.delete_all
+    Comment.delete_all
+    Like.delete_all
+    Photo.delete_all
+    User.delete_all
+  end
+
+  10.times do
+    name = Faker::Name.first_name
+    u = User.create(
+      email: "#{name}@example.com",
+      password: "password",
+      username: name,
+      private: [true, false].sample,
+    )
+    p u.errors.full_messages
+  end
+
+  p "There are now #{User.count} users."
+
+  users = User.all
+
+  20.times do
+    photo = Photo.new
+    photo.caption = Faker::Quote.jack_handey
+    photo.image = "https://robohash.org/#{rand(9999)}"
+    photo.owner_id = User.all.sample.id
+    photo.save!
+  end
+
+  50.times do
+    comment = Comment.new
+    comment.author_id = User.all.sample.id
+    comment.photo_id = User.all.sample.id
+    comment.body = Faker::Lorem.sentence
+    comment.save!
+  end
+
+  users.each do |first_user|
+    users.each do |second_user|
+      if rand < 0.75
+        first_user.sent_follow_requests.create(
+          recipient: second_user,
+          status: FollowRequest.statuses.keys.sample,
+        )
+      end
+
+      if rand < 0.75
+        second_user.sent_follow_requests.create(
+          recipient: first_user,
+          status: FollowRequest.statuses.keys.sample,
+        )
+      end
+
+      10.times do
+        like = Like.create(
+          fan_id: first_user.id,
+          photo_id: Photo.all.sample.id
+        )
+      end
+    end
+    p "There are now #{User.count} users."
+    p "There are now #{FollowRequest.count} follow requests."
+    p "There are now #{Photo.count} photos."
+    p "There are now #{Like.count} likes."
+    p "There are now #{Comment.count} comments."
+  end
 end
