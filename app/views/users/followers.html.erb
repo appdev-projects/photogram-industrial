@@ -1,0 +1,5 @@
+<h3>followers</h3>
+
+<% @user.followers.each do |follow| %>
+<li> <%= follow.username %> </li>
+<% end %>
