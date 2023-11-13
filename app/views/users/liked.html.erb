@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col md-6 offset-1">
+
+    <%= render "shared/profilebar"%>
+
+  </div>
+</div>
+
+<% @user.liked_photos.each do |photo| %>
+  <%= render "photos/photo", photo: photo %>
+<% end %>

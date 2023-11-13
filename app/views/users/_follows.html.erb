@@ -1,0 +1,15 @@
+<div class="row mb-4">
+  <div class="col-md-6 offset-md-3">
+
+    <div class="list-group">
+      <a href=<%=user_path(user.username)%> class="list-group-item list-group-item-action active" >
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1"><%=user.username%></h5>
+          <small>last seen x days ago</small>
+        </div>
+        <p class="mb-1">Eventually Bio will be here</p>
+        <small><%=user.photos_count%></small>
+      </a>
+    </div>
+  </div>
+</div>
