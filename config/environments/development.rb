@@ -1,6 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.action_mailer.default_url_options = { host: 'https://literate-chainsaw-977q594p67pvhxr9p-3000.app.github.dev/', port: 3000 }
   # Allow server to be hosted on any URL
   config.hosts.clear
   # Allow better_errors to work in online IDE
