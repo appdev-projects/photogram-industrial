@@ -14,7 +14,7 @@ task({ :sample_data => :environment }) do
     name = Faker::Name.first_name
     u = User.create(
       email: "#{name}@example.com",
-      password: "password",
+      password: "123456",
       username: name,
       private: [true, false].sample
     )
