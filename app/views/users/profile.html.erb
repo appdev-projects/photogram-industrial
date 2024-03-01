@@ -1,17 +1,22 @@
 <div class="container"><!--container div-->
   <div class="row">
     <div class="col-4">
-      <img src="https://photogram-industrial.matchthetarget.com/9.jpeg" alt="" class="mr-3 round-circle" width="128">
+      <img src="https://photogram-industrial.matchthetarget.com/9.jpeg" alt="avatar" class="mr-3 round-circle" width="128">
     </div>
     <div class="col-8">
       <div class="container">
         <div class="row">
-          <div class="col">NAME</div>
-          <div class="col">STATUS</div>
+          <div class="col"><h1 class="fs-1 text"><%= @user.username %>
+          </h1></div>
+          <div class="col"><% if !@user.private %>
+            <div class="btn btn-secondary btn-sm">Public</div>
+          <% else %>
+            <div class="btn btn-secondary btn-sm">Private</div>
+          <% end %></div>
         </div>
         <div class="row">
-          <div class="col">followers</div>
-          <div class="col">following</div>
+          <div class="col"><%= @user.followers.count %> followers</div>
+          <div class="col"><%= @user.followers.count %> following</div>
           <div class="col">pending</div>
         </div>
         <div class="row">
@@ -26,16 +31,16 @@
     </div>
   </div>
 </div>
-<!--container end-->
 
 <ul class="nav nav-tabs nav-fill">
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Posts</a>
+    <!--<a class="nav-link active" aria-current="page" href="/<%#= user_profile_path %>">Posts</a>-->
+    <%= link_to "Posts", user_profile_path(@user.username), class: "nav-link active"%>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#">Liked</a>
   </li>
 </ul>
 <% @user.own_photos.each do |post| %>
-  <%= render partial "shared/card" locals: {post: post } %>
+  <%= render partial: "shared/card", locals: {post: post} %>
 <% end %>
