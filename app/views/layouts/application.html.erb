@@ -6,11 +6,27 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= render partial: "shared/cdn_assets" %>
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <%= render partial: "shared/navbar" %>
+    <div>
+      <div class="container">
+        <% if notice.present? %>
+          <%= render partial: "shared/flash_messages", locals:{ message: notice, css_class: "success" } %>
+        <% else %>
+          <%= render partial: "shared/flash_messages", locals:{ message: alert, css_class: "danger" } %>
+        <% end %>
+        <!--        <div class="row mb-4">
+          <div class="col-md-6 offset-md-3">-->
+        <%= yield %>
+        <!--          </div>
+        </div>-->
+      </div>
+    </div>
   </body>
 </html>
