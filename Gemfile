@@ -2,6 +2,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.1"
+gem "devise"
 
 gem "simple_form"
 
@@ -85,7 +86,7 @@ gem "sqlite3", "~> 1.4"
 gem "table_print"
 
 group :development do
-  gem "annotate"
+  gem 'annotate'
   gem "better_errors"
   gem "binding_of_caller"
   gem "grade_runner"
