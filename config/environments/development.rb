@@ -47,7 +47,7 @@ Rails.application.configure do
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 
-  # Set localhost to be used by links generated in mailer templates.
+  # Set localhost to be used by links generated in mailer templates. (Also the line needed to be changed when deploying the application. In production host should be set to the host server of app and not personal computer)
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
   # Print deprecation notices to the Rails logger.
