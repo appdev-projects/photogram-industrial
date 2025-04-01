@@ -3,8 +3,9 @@
 class DeviseCreateUsers < ActiveRecord::Migration[8.0]
   def change
     create_table :users do |t|
+      enable_extension("citext")
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
+      t.citext :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
@@ -18,7 +19,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[8.0]
       # t.integer  :sign_in_count, default: 0, null: false
       # t.datetime :current_sign_in_at
       # t.datetime :last_sign_in_at
-      # t.string   :current_sign_in_ip
+      # t.string   :current_sign_in_ip 
       # t.string   :last_sign_in_ip
 
       ## Confirmable
@@ -32,14 +33,15 @@ class DeviseCreateUsers < ActiveRecord::Migration[8.0]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
-      t.string :username
+      t.citext :username
       t.string :name
       t.string :avatar_image
       t.string :bio
       t.string :website
       t.boolean :private
-      t.integer :likes_count
-      t.integer :comments_count
+      t.integer :likes_count, default: 0
+      t.integer :comments_count, default: 0
+      t.integer :photos_count, default: 0
 
       t.timestamps null: false
     end
@@ -48,5 +50,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[8.0]
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
+    add_index :users, :username,             unique: true
   end
 end
