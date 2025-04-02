@@ -73,6 +73,7 @@ gem "validate_url"
 gem "carrierwave"
 gem "cloudinary"
 gem "devise"
+gem "kaminari"
 
 group :development do
   gem "annotaterb"
