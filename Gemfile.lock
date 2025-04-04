@@ -1,3 +1,16 @@
+GIT
+  remote: https://github.com/firstdraft/grade_runner.git
+  revision: c2bec47a70bc527986e6ef0649ab5252ef21c428
+  branch: bp-testing-grades-pr-774
+  specs:
+    grade_runner (0.0.13)
+      activesupport (>= 2.3.5)
+      faraday-retry (~> 1.0.3)
+      octokit (~> 5.0)
+      oj (~> 3.13.12)
+      rake (~> 13)
+      zip
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -176,13 +189,6 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    grade_runner (0.0.13)
-      activesupport (>= 2.3.5)
-      faraday-retry (~> 1.0.3)
-      octokit (~> 5.0)
-      oj (~> 3.13.12)
-      rake (~> 13)
-      zip
     hashdiff (1.1.2)
     htmlbeautifier (1.4.3)
     http (5.2.0)
@@ -562,7 +568,7 @@ DEPENDENCIES
   devise
   dotenv
   faker
-  grade_runner (~> 0.0.13)
+  grade_runner!
   htmlbeautifier
   http
   importmap-rails

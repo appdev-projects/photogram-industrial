@@ -85,7 +85,7 @@ end
 
 group :development, :test do
   gem "rspec-rails", "~> 7.1.1"
-  gem "grade_runner", "~> 0.0.13"
+  gem "grade_runner", github: "firstdraft/grade_runner", branch: "bp-testing-grades-pr-774"
 end
 
 group :test do
