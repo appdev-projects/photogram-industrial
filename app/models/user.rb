@@ -32,6 +32,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  mount_uploader :avatar_image, ImageUploader
   has_many :own_photos, class_name: "Photo", foreign_key: :owner_id
   has_many :comments, foreign_key: :author_id
   has_many :sent_follow_requests, foreign_key: :sender_id, class_name: "FollowRequest"
@@ -51,6 +52,12 @@ class User < ApplicationRecord
 
   has_many :discover, ->{ distinct }, through: :leaders, source: :liked_photos
 
-  validates :username, presence: true, uniqueness: true
+  before_create :set_default_image
+
+  def set_default_image
+    self.avatar_image=File.open("#{Rails.root}/app/assets/images/generic_user.png")
+  end
+
+  #validates :username, presence: true, uniqueness: true
 
 end
