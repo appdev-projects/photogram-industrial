@@ -31,6 +31,7 @@ class LikesController < ApplicationController
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @like.errors, status: :unprocessable_entity }
+        format.any { head :not_acceptable }
       end
     end
   end

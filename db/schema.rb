@@ -10,16 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-gc-photogram-industrial-2
-ActiveRecord::Schema[8.0].define(version: 2025_04_08_235503) do
-
-ActiveRecord::Schema[8.0].define(version: 2025_03_13_202311) do
- main
+ActiveRecord::Schema[8.0].define(version: 2025_04_15_223501) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
 
-gc-photogram-industrial-2
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
   create_table "comments", force: :cascade do |t|
     t.bigint "author_id", null: false
     t.bigint "photo_id", null: false
@@ -58,36 +81,6 @@ gc-photogram-industrial-2
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_photos_on_owner_id"
   end
-
-  create_table "users", force: :cascade do |t|
-    t.citext "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.string "username"
-    t.string "name"
-    t.string "avatar_image"
-    t.string "bio"
-    t.string "website"
-    t.boolean "private", default: true
-    t.integer "likes_count", default: 0
-    t.integer "comments_count", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "photos_count"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
-  end
-
-  add_foreign_key "comments", "photos"
-  add_foreign_key "comments", "users", column: "author_id"
-  add_foreign_key "follow_requests", "users", column: "recipient_id"
-  add_foreign_key "follow_requests", "users", column: "sender_id"
-  add_foreign_key "likes", "photos"
-  add_foreign_key "likes", "users", column: "fan_id"
-  add_foreign_key "photos", "users", column: "owner_id"
 
   create_table "solid_cable_messages", force: :cascade do |t|
     t.binary "channel", null: false
@@ -231,11 +224,41 @@ gc-photogram-industrial-2
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "users", force: :cascade do |t|
+    t.citext "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "username"
+    t.string "name"
+    t.string "avatar_image"
+    t.string "bio"
+    t.string "website"
+    t.boolean "private", default: true
+    t.integer "likes_count", default: 0
+    t.integer "comments_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "photos_count"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "photos"
+  add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "follow_requests", "users", column: "recipient_id"
+  add_foreign_key "follow_requests", "users", column: "sender_id"
+  add_foreign_key "likes", "photos"
+  add_foreign_key "likes", "users", column: "fan_id"
+  add_foreign_key "photos", "users", column: "owner_id"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
- main
 end
