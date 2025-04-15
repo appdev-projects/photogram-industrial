@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get ":username/feed" => "users#feed", as: :feed
 
 
+
   
 
   

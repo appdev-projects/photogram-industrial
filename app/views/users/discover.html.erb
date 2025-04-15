@@ -17,9 +17,10 @@
 </div>
 
 <ul>
-  <%@user.leaders.each do |leader|
+
+    <%@user.leaders.each do |leader|
     leader.liked_photos.each do |photo|%>
-    <%liked_photos.each do |photo|%>
-    <%= render "photos/photo", photo: photo %>
+      <%= render "photos/photo", photo: photo %>
+    <%end%>
   <%end%>
 </ul>

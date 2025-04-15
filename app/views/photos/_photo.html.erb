@@ -5,6 +5,12 @@
           <div class="card-body">
             <h5 class="card-title"><%= photo.owner.username %></h5>
             <p class="card-text"><%=photo.caption%></p>
+            <>
+            <%if photo.likes.include?(current_user)%>
+              <%=link_to 'Unlike', like_path(photo.likes.find_by(user: current_user)), method: :delete, data: { turbo_method: :delete } %>
+            <%else%>
+              <%= link_to "Like", likes_path(photo_id: photo.id), method: :post, data: { turbo_method: :post } %>
+            <%end%>
           </div>
           <ul class="list-group list-group-flush">
             <% photo.comments.each do |comment| %>
@@ -15,7 +21,8 @@
                   </div>
                   <div class="flex-grow-1 ms-3">
                     <h5 class="mt-0"><%= comment.author.username %></h5>
-                    <p><%= comment.body %></p>
+                    <p><%= comment.body %></p>                
+
                   </div>
                 </div>
                </li>
