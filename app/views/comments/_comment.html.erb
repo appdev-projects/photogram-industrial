@@ -1,0 +1,19 @@
+<div class="d-flex">
+   <div class="flex-shrink-0">
+      <%= image_tag comment.author.avatar_image_url, class: "rounded-circle me-2", width: "36px"%>
+    </div>
+    <div class="flex-grow-1 ms-3">
+       <h5 class="mt-0"><%= comment.author.username %></h5>
+       <p><%= comment.body %></p>                
+    </div>
+
+  <div>
+    <%= link_to edit_comment_path(comment), class: "btn btn-primary btn-sm" do %>
+      <i class="fas fa-edit fa-fw"></i>
+    <%end%>
+  
+  <%=button_to comment, method: :delete, class: "btn btn-danger btn-sm" do %>
+    <i class="fas fa-trash fa-fw"></i>
+  <%end%>
+  </div>
+</div>
