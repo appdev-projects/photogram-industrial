@@ -20,7 +20,10 @@
 #  fk_rails_...  (recipient_id => users.id)
 #  fk_rails_...  (sender_id => users.id)
 #
+# app/models/follow_request.rb
 class FollowRequest < ApplicationRecord
   belongs_to :recipient, class_name: "User"
   belongs_to :sender, class_name: "User"
+
+  enum :status, { pending: "pending", rejected: "rejected", accepted: "accepted" }
 end
