@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_04_193635) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_04_194342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -30,6 +30,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_04_193635) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["photo_id"], name: "index_comments_on_photo_id"
+  end
+
+  create_table "follow_requests", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.bigint "sender_id", null: false
+    t.string "status", default: "pending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_follow_requests_on_recipient_id"
+    t.index ["sender_id"], name: "index_follow_requests_on_sender_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -217,6 +227,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_04_193635) do
 
   add_foreign_key "comments", "photos"
   add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "follow_requests", "users", column: "recipient_id"
+  add_foreign_key "follow_requests", "users", column: "sender_id"
   add_foreign_key "photos", "users", column: "owner_id"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
