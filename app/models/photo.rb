@@ -20,5 +20,5 @@
 #  fk_rails_...  (owner_id => users.id)
 #
 class Photo < ApplicationRecord
-  bbelongs_to :owner, class_name: "User"
+  belongs_to :owner, class_name: "User"
 end
