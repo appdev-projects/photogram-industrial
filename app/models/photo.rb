@@ -20,11 +20,10 @@
 #  fk_rails_...  (owner_id => users.id)
 #
 class Photo < ApplicationRecord
-  belongs_to :owner, class_name: "User", counter_cache: true
-  has_many :own_photos, foreign_key: :owner_id, class_name: "Photo"
-  has_many :fans, through: :likes
-  has_many :likes
+  belongs_to :owner, class_name: "User"
   has_many :comments
+  has_many :likes
+  has_many :fans, through: :likes
 
   validates :caption, presence: true
   validates :image, presence: true
